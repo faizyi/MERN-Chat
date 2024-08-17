@@ -19,7 +19,18 @@ const createUser = async (payload)=>{
     }
 }
 
+
+const getUsers = async (loggedInUserId)=>{
+    try {
+        const allUser =  await userModel.find({_id : {$ne : loggedInUserId}}).select("-password");
+        return allUser
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
 export {
     findByEmail,
-    createUser
+    createUser,
+    getUsers
 }

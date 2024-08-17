@@ -1,40 +1,34 @@
 import { useEffect, useState } from "react";
-import io from "socket.io-client";
-import { getMessage } from "../../services/chat.service";
 import { useParams } from "react-router-dom";
-
-const socket = io("http://localhost:7777");
-
+import { getMessage } from "../../services/chat.service";
+import socket from "../../socket/socket";
+import senderIdHook from "./senderId.hook";
 export default function messagesHook() {
   const { friendId } = useParams();
-  const userId = localStorage.getItem("userId");
-  const [messages, setMessages] = useState([]);
+  const {senderId} = senderIdHook();
+  const [messages, setMessages] = useState({});
+  useEffect(() => {
+    socket.emit("signup", senderId);
+
+    socket.on("receive_message", (newMessage) => {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        newMessage.messageData
+      ]);
+    });
+  }, [senderId]);
 
   useEffect(() => {
-    socket.emit("signup", userId);
-
     const fetchMessages = async () => {
       try {
-        const response = await getMessage(userId, friendId);
-        console.log(response);
+        const response = await getMessage(senderId, friendId);
         setMessages(response.data.message); // Ensure messages is an array
       } catch (error) {
         console.log(error);
       }
     };
     fetchMessages();
-  }, [userId, friendId]);
+  }, [senderId, friendId]);
 
-  useEffect(() => {
-    socket.on("message", (newMessage) => {
-      // console.log(newMessage);
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
-    });
-
-    return () => {
-      socket.off("message");
-    };
-  }, []);
-
-  return { messages };
+  return { messages};
 }

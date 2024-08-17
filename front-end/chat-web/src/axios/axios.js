@@ -2,7 +2,8 @@ import axios from "axios";
 
 export const axiosHandler = axios.create({
     baseURL : "http://localhost:7777",
-    headers : {"Content-Type" : "application/json"}
+    headers : {"Content-Type" : "application/json"},
+    withCredentials : true
 })
 
 axiosHandler.interceptors.request.use(

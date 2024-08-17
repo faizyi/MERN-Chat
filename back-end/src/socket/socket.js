@@ -11,36 +11,30 @@ const io = new Server(server,{
     }
 });
 
-let users = {};
+let users = [];
 
 io.on("connection", (socket)=>{
     console.log("a user connected");
 
     socket.on("signup", (userId)=>{
-        users[userId] = socket.id
-        console.log(userId , socket.id);
-        console.log(`User ${userId} connected with socket ID ${socket.id}`);
+        const user = {userId, socketId : socket.id};
+        users.push(user);
+        // console.log(users);
     })
-    socket.on("message", (msg) => {
-        // const { senderId, receiverId, message } = msg;
-        // console.log(`Message from ${senderId} to ${receiverId}: ${message}`);
-
-        // if (users[receiverId]) {
-        //   io.to(users[receiverId]).emit("message", msg);
-        // }
-        // io.to(socket.id).emit("message", msg); // Send back to sender as well
-        io.emit("message" , msg)
-      })
+    socket.on("send_message", (messageData)=>{
+        // console.log(messageData);
+        const receiver = users.find((user)=> user.userId === messageData.receiverId);
+        const sender = users.find((user)=> user.userId === messageData.senderId);
+        if(receiver){
+            io.to(receiver.socketId).to(sender.socketId).emit("receive_message", {
+            messageData
+        });
+    }
+    })
 
     socket.on("disconnect", ()=>{
         console.log('user disconnected');
-        for (const [userId, socketId] of Object.entries(users)) {
-            if (socketId === socket.id) {
-              delete users[userId];
-              console.log(`User ${userId} disconnected`);
-              break;
-            }
-          }
+        users = users.filter((user) => user.socketId !== socket.id);
     })
 })
 

@@ -1,50 +1,62 @@
-import { Button, Form, Input } from 'antd';
+import { Button, TextField, Box, Container, Typography, Grid } from '@mui/material';
+import { Link } from 'react-router-dom';
 import loginHook from '../../customHooks/authHooks/login.hook';
 export default function LoginForm() {
-    const {onFinish} = loginHook();
+    const {handleLogin} = loginHook();
   return (
     <div className="flex items-center justify-center min-h-screen">
-      <Form
-        name="basic"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        className="w-full max-w-lg"
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        autoComplete="off"
+     <Container component="main" maxWidth="xs">
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
       >
-        <Form.Item
-          label="Email"
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your email!',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Password"
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your password!',
-            },
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
-
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
-            Login
+        <Typography component="h1" variant="h5">
+          Log In
+        </Typography>
+        <Box component="form" onSubmit={handleLogin} noValidate sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            type="email"
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Log In
           </Button>
-        </Form.Item>
-      </Form>
+          <Grid container justifyContent={"center"}>
+            <Grid item>
+              <Link to="/" >
+                Don't have an account? Sign up
+              </Link>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+    </Container>
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 // import bodyParser from "body-parser";
 import config from "./src/config/server.config.js";
 import connectDB from "./src/db/db.js";
@@ -8,10 +9,14 @@ import chatRoutes from "./src/routes/chat.routes.js"
 import { app, server } from "./src/socket/socket.js";
 const PORT = config.appPort
 
-
-
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());
+app.use(cookieParser());
+app.use(cors({
+    origin : "http://localhost:5173",
+    credentials : true
+}));
 // app.use(bodyParser.json());
 
 await connectDB();
