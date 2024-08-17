@@ -1,44 +1,44 @@
-import { TextField, Button, Box } from "@mui/material";
+import { Box, IconButton, Paper, InputBase } from "@mui/material";
 import chatInputHook from "../../customHooks/chatHooks/chatInput.hook";
-
+import { FaPaperPlane } from "react-icons/fa";
 export default function MessageInput() {
   const { newMessage, setNewMessage, handleSend } = chatInputHook();
-
   return (
     <Box
       sx={{
         position: "fixed",
         bottom: 0,
-        left: { sm: '340px' },  // Adjust left position based on the sidebar width
+        left: { sm: '340px' },
         right: 0,
-        backgroundColor: "#202C33",
-        p: 2,
-        borderTop: "1px solid #ddd",
-        display: "flex",
+        backgroundColor: "#171c1c",
         alignItems: "center",
         zIndex: 1000,
         width: { xs: '100%', sm: 'auto' },
       }}
     >
-      <TextField
-        fullWidth
-        value={newMessage}
-        onChange={(e) => setNewMessage(e.target.value)}
-        onKeyPress={(e) => {
-          if (e.key === "Enter") handleSend();
-        }}
-        placeholder="Type a message"
-        InputProps={{
-          style: { color: "white" },
-        }}
-      />
-      <Button
-        variant="contained"
-        onClick={handleSend}
-        sx={{ ml: 1, backgroundColor: "#0084ff", '&:hover': { backgroundColor: "#005bb5" } }}
+      <Paper
+        component="form"
+        sx={{ backgroundColor: "#2A3942", display: 'flex', alignItems: 'center', margin: 1 }}
+        onSubmit={(e) => {e.preventDefault()}}
       >
-        Send
-      </Button>
+        <InputBase
+          fullWidth
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") handleSend();
+          }}
+          sx={{ ml: 1, flex: 1, color: "white",p:1}}
+          placeholder="Type a message"
+        />
+        <IconButton
+          onClick={handleSend}
+          sx={{ color: "white", p: "10px", }}
+          aria-label="send"
+        >
+          <FaPaperPlane />
+        </IconButton>
+      </Paper>
     </Box>
   );
 }

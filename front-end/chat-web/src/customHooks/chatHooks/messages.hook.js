@@ -10,7 +10,7 @@ export default function messagesHook() {
   useEffect(() => {
     socket.emit("signup", senderId);
 
-    socket.on("receive_message", (newMessage) => {
+    socket.on("receive_message", (newMessage) => {      
       setMessages((prevMessages) => [
         ...prevMessages,
         newMessage.messageData
@@ -22,6 +22,7 @@ export default function messagesHook() {
     const fetchMessages = async () => {
       try {
         const response = await getMessage(senderId, friendId);
+        console.log(response.data.message);
         setMessages(response.data.message); // Ensure messages is an array
       } catch (error) {
         console.log(error);

@@ -6,7 +6,7 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server,{
     cors :{
-        origin: "http://localhost:5173",
+        origin: "https://mern-chat-gamma.vercel.app/",
         methods : ["GET", "POST"]
     }
 });
@@ -26,10 +26,15 @@ io.on("connection", (socket)=>{
         const receiver = users.find((user)=> user.userId === messageData.receiverId);
         const sender = users.find((user)=> user.userId === messageData.senderId);
         if(receiver){
-            io.to(receiver.socketId).to(sender.socketId).emit("receive_message", {
+            io.to(receiver.socketId).emit("receive_message", {
             messageData
         });
     }
+    if(sender){
+        io.to(sender.socketId).emit("receive_message", {
+        messageData
+    });
+}
     })
 
     socket.on("disconnect", ()=>{

@@ -7,7 +7,7 @@ export default function chatInputHook() {
   const {senderId} = senderIdHook();
   const { friendId } = useParams();
   const [newMessage, setNewMessage] = useState("");
-  const handleSend = async () => {    
+  const handleSend = async () => {
     if (newMessage.trim()) {  
       const msg = newMessage;
       const messageData = { senderId: senderId, receiverId: friendId, message: msg };

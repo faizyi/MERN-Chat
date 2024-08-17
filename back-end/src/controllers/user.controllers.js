@@ -33,6 +33,8 @@ const login = async (req, res)=>{
 const getAllUsers = async (req, res)=>{
     try {
         const loggedInUserId = req.user._id;
+        console.log("id", loggedInUserId);
+        
         const filteredUsers = await getUsers(loggedInUserId);
         res.status(201).json({users : filteredUsers});
     } catch (error) {

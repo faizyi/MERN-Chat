@@ -8,9 +8,10 @@ export default function usersHook() {
         const fetchUsers = async ()=>{
           try {
             const result = await allUsers();
-            setUsers(result.data.users)
+              setUsers(result.data.users)
           } catch (error) {
             console.log(error)
+            navigate("/login")
           }
         }
         fetchUsers();
