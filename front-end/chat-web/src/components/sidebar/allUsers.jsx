@@ -1,4 +1,4 @@
-import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
+import { Box, List, ListItem, ListItemText, Typography, Avatar } from '@mui/material';
 import usersHook from '../../customHooks/chatHooks/users.hook';
 
 export default function AllUsers({ onUserClick }) {
@@ -43,9 +43,13 @@ export default function AllUsers({ onUserClick }) {
                 '&:hover': {
                   backgroundColor: '#2A2F32',
                 },
+                display: "flex",
+                alignItems: 'center',
+                gap: 2,
               }}
               onClick={() => handleClick(user._id)}
             >
+              <Avatar src="/broken-image.jpg" sx={{ width: 56, height: 56 }} />
               <ListItemText
                 primary={user.fullName}
                 secondary={user.email}
