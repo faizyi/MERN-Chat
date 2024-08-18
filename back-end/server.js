@@ -9,7 +9,7 @@ import connectDB from "./src/db/db.js";
 import userRoutes from "./src/routes/user.routes.js";
 import chatRoutes from "./src/routes/chat.routes.js";
 // import { server} from "./src/socket/socket.js";
-import { corsOption, whiteList } from "./src/config/cors.config.js";
+// import { corsOption, whiteList } from "./src/config/cors.config.js";
 
 const app = express();
 
@@ -17,7 +17,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors(corsOption));
+app.use(cors({
+    origin: "https://mern-chat-gamma.vercel.app",
+    methods: ["GET", "POST"],
+    credentials: true,
+}));
 
 const dbConnect = async (params) => {
     try {
@@ -44,7 +48,7 @@ app.use("/api/chats", chatRoutes);
 const server = createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: whiteList,
+        origin: "https://mern-chat-gamma.vercel.app",
         methods: ["GET", "POST"],
         credentials: true,
     },

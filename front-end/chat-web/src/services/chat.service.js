@@ -2,7 +2,7 @@ import { axiosHandler } from "../axios/axios"
 
 export const sendMessage = async (newMessage)=>{
     try {
-        const response = await axiosHandler.post("api/chats/", newMessage);
+        const response = await axiosHandler.post("/api/chats/", newMessage);
         return response
     } catch (error) {
         console.log(error);
