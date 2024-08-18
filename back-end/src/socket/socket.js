@@ -1,13 +1,15 @@
 import express from "express";
 import {createServer} from "http"
 import { Server } from "socket.io";
+import { whiteList } from "../config/cors.config.js";
 
 const app = express();
 const server = createServer(app);
 const io = new Server(server,{
     cors :{
-        origin: "https://mern-chat-gamma.vercel.app/",
-        methods : ["GET", "POST"]
+        origin: whiteList,
+        methods : ["GET", "POST"],
+        credentials: true,
     }
 });
 

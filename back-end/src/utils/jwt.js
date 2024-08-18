@@ -6,8 +6,9 @@ const jwtToken = async (user, res) =>{
     res.cookie("jwt", token,{
         maxAge: 15 * 24 * 60 * 60 * 1000,
 		httpOnly: true,
-		sameSite: "strict",
-        secure : config.cookieKey === "production"
+		sameSite: "None",
+        secure: true,
+        // secure : config.cookieKey === "production"
     })
     return token
 }

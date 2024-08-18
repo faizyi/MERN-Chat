@@ -5,7 +5,7 @@ import config from "../config/server.config.js";
 const protectRoute = async (req, res, next) => {
     try {
         const token = req.cookies.jwt;
-        console.log(token);
+        console.log("token",token);
         if (!token) return res.status(401).json({ message: "Not authorized" });
         const decoded = jwt.verify(token, config.jwtKey);
         if (!decoded) return res.status(401).json({ message: "Invalid token" });
