@@ -2,14 +2,13 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getMessage } from "../../services/chat.service";
 import socket from "../../socket/socket";
-import senderIdHook from "./senderId.hook";
 export default function messagesHook() {
+  const sender = JSON.parse(localStorage.getItem("userData")) || null;
+  const senderId = sender ? sender.userId : "";
   const { friendId } = useParams();
-  const {senderId} = senderIdHook();
   const [messages, setMessages] = useState({});
   useEffect(() => {
     socket.emit("signup", senderId);
-
     socket.on("receive_message", (newMessage) => {      
       setMessages((prevMessages) => [
         ...prevMessages,
@@ -22,8 +21,7 @@ export default function messagesHook() {
     const fetchMessages = async () => {
       try {
         const response = await getMessage(senderId, friendId);
-        console.log(response.data.message);
-        setMessages(response.data.message); // Ensure messages is an array
+        setMessages(response.data.message);
       } catch (error) {
         console.log(error);
       }

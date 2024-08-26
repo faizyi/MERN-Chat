@@ -8,12 +8,10 @@ export default function MessageInput() {
       sx={{
         position: "fixed",
         bottom: 0,
-        left: { sm: '340px' },
+        left: { xs: "0px", sm: '340px',md: "400px", lg: "400px"  },
         right: 0,
         backgroundColor: "#171c1c",
         alignItems: "center",
-        zIndex: 1000,
-        width: { xs: '100%', sm: 'auto' },
       }}
     >
       <Paper

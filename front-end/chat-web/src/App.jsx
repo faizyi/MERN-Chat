@@ -8,6 +8,7 @@ export default function App() {
      <Routes>
         <Route path="/" element={<Signup/>} />
         <Route path="/login" element={<Login/>} />
+        {/* <Route path="/chat-home" element={<ChatHome/>} /> */}
         <Route path="/chat-home/:friendId?" element={<ChatHome/>} />
       </Routes>
     </BrowserRouter>

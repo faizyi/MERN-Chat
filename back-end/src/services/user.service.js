@@ -29,8 +29,18 @@ const getUsers = async (loggedInUserId)=>{
     }
 }
 
+const searchUser = async(name)=>{
+    try {
+        const search = await userModel.find({fullName: new RegExp(name, "i")})
+        return search
+    } catch (error) {
+        throw new Error(error); 
+    }
+}
+
 export {
     findByEmail,
     createUser,
-    getUsers
+    getUsers,
+    searchUser
 }

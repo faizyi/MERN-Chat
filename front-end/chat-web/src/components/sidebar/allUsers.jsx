@@ -1,77 +1,30 @@
-import { Box, List, ListItem, ListItemText, Typography, Avatar } from '@mui/material';
-import usersHook from '../../customHooks/chatHooks/users.hook';
-
-export default function AllUsers({ onUserClick }) {
-  const { users, handleUserClick } = usersHook();
-
-  const handleClick = (userId) => {
-    handleUserClick(userId);
-    onUserClick(userId);
-  };
-
+import { Box} from '@mui/material';
+import GetUsers from './getUsers';
+export default function AllUsers({ onUserClick, filteredUsers }) {
   return (
     <Box
       sx={{
         overflow: "auto",
-        height: "calc(100vh - 80px)", // Adjust height based on your layout
+        height: "calc(100vh - 80px)", 
         '&::-webkit-scrollbar': {
-          width: '10px', // Width of the scrollbar
+          width: '10px', 
         },
         '&::-webkit-scrollbar-track': {
-          backgroundColor: '#111b21', // Track color
+          backgroundColor: '#111b21',
         },
         '&::-webkit-scrollbar-thumb': {
-          backgroundColor: '#333', // Thumb color
-          borderRadius: '10px', // Rounded corners for the thumb
-          border: '2px solid transparent', // Adds space around the thumb
-          backgroundClip: 'content-box', // Ensures the border doesn't overlap the thumb color
+          backgroundColor: '#333', 
+          borderRadius: '10px', 
+          border: '2px solid transparent',
+          backgroundClip: 'content-box', 
         },
         '&::-webkit-scrollbar-thumb:hover': {
-          backgroundColor: '#555', // Darker thumb color on hover
+          backgroundColor: '#555', 
         },
         
       }}
     >
-      <List sx={{ flexGrow: 1 }}>
-        {users.length > 0 ? (
-          users.map((user) => (
-            <ListItem
-              key={user._id}
-              sx={{
-                p: 1.5,
-                borderBottom: '1px solid #333',
-                '&:hover': {
-                  backgroundColor: '#2A2F32',
-                },
-                display: "flex",
-                alignItems: 'center',
-                gap: 2,
-              }}
-              onClick={() => handleClick(user._id)}
-            >
-              <Avatar src="/broken-image.jpg" sx={{ width: 56, height: 56 }} />
-              <ListItemText
-                primary={user.fullName}
-                secondary={user.email}
-                primaryTypographyProps={{
-                  sx: {
-                    fontWeight: 'bold',
-                    textTransform: 'capitalize',
-                    color: '#E9EDEF',
-                  },
-                }}
-                secondaryTypographyProps={{
-                  sx: { color: '#8696A0' },
-                }}
-              />
-            </ListItem>
-          ))
-        ) : (
-          <Typography sx={{ p: 4, textAlign: 'center', color: 'gray' }}>
-            No users found
-          </Typography>
-        )}
-      </List>
+      <GetUsers onUserClick={onUserClick} filteredUsers={filteredUsers}/>
     </Box>
   );
 }

@@ -1,15 +1,25 @@
 import { Box, Typography, Grid, Paper } from "@mui/material";
 import messagesHook from "../../customHooks/chatHooks/messages.hook";
-import senderIdHook from "../../customHooks/chatHooks/senderId.hook";
 import { useEffect, useRef } from "react";
-import { messageTime } from "../../utils/messageTime";
+// import { messageTime } from "../../utils/messageTime";
 export default function AllMessages() {
+  const sender = JSON.parse(localStorage.getItem("userData")) || null;
+  const senderId = sender ? sender.userId : "";
     const { messages } = messagesHook();
-    const { senderId } = senderIdHook();
     const messagesEndRef = useRef(null);
     useEffect(() => {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      // messageTime()
     }, [messages]);
+    const calculateWidth = (message) => {
+      const minWidth = 70; // minimum width in pixels
+      const maxWidth = 400; // maximum width in pixels
+      const padding = 16; // padding inside the Paper component
+      const lengthMultiplier = 8; // multiplier to adjust width per character
+  
+      const calculatedWidth = message.length * lengthMultiplier + padding;
+      return Math.min(Math.max(calculatedWidth, minWidth), maxWidth);
+    };
   return (
     <Grid
     item
@@ -44,9 +54,9 @@ export default function AllMessages() {
               key={index}
               elevation={2}
               sx={{
-                mb: 2,
-                p: 2,
-                maxWidth: "50%",
+                mb: 1,
+                p: 1,
+                width: `${calculateWidth(msg.message)}px`,
                 borderRadius: 2,
                 ml: msg.senderId === senderId ? "auto" : "unset",
                 mr: msg.senderId !== senderId ? "auto" : "unset",
@@ -58,7 +68,7 @@ export default function AllMessages() {
                 variant="body2"
                 sx={{
                   textAlign: "right",
-                  color: msg.senderId === senderId ? "#25D366" : "#075E54",
+                  // color: msg.senderId === senderId ? "#25D366" : "#075E54",
                   fontWeight: "bold",
                   mb: 0.5,
                 }}
@@ -76,7 +86,6 @@ export default function AllMessages() {
                 sx={{ textAlign: "right", color: "gray", display: "block" }}
               >
                 {/* {messageTime(msg.timeStamp)} */}
-                {msg.timeStamp}
               </Typography>
             </Paper>
           ))
@@ -87,6 +96,7 @@ export default function AllMessages() {
         )}
         <div ref={messagesEndRef} />
       </Box>
+      
   </Grid>
   )
 }

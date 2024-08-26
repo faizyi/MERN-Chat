@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { sendMessage as sendMessageToServer } from "../../services/chat.service";
 import socket from "../../socket/socket";
-import senderIdHook from "./senderId.hook";
 export default function chatInputHook() {
-  const {senderId} = senderIdHook();
+   const sender = JSON.parse(localStorage.getItem("userData")) || null;
+  const senderId = sender ? sender.userId : "";
   const { friendId } = useParams();
   const [newMessage, setNewMessage] = useState("");
   const handleSend = async () => {

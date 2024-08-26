@@ -1,4 +1,4 @@
-import { createUser, findByEmail, getUsers } from "../services/user.service.js";
+import { createUser, findByEmail, getUsers, searchUser } from "../services/user.service.js";
 import { comparePassword, hashPassword } from "../utils/hash.password.js";
 import jwtToken from "../utils/jwt.js";
 
@@ -42,8 +42,19 @@ const getAllUsers = async (req, res)=>{
     }
 }
 
+const searchUsers = async (req, res)=>{
+    try {
+        const userName = req.params.query;
+        const users = await searchUser(userName);
+        res.status(201).json({ users });
+    } catch (error) {
+        res.status(500).json({ error: "Internal server error" });
+    }
+}
+
 export {
     signup,
     login,
-    getAllUsers
+    getAllUsers,
+    searchUsers
 }
