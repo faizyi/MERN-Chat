@@ -6,17 +6,7 @@ import { useEffect, useState } from 'react';
 import WelcomeUser from '../../welcomeUser/welcomeUser';
 export default function ChatHome() {
   const { friendId } = useParams();
-  // const [friendId, setFriendId] = useState(id || localStorage.getItem('selectedFriendId'));
   const [showSidebar, setShowSidebar] = useState(true);
-  // useEffect(() => {
-  //   if (friendId) {
-  //     setShowSidebar(false); 
-  //     localStorage.setItem('selectedFriendId', friendId); // Save the selected friendId
-  //   } else {
-  //     setShowSidebar(true); // Show the sidebar when no friend is selected
-  //     localStorage.removeItem('selectedFriendId'); // Remove the friendId when no friend is selected
-  //   }
-  // }, [friendId]);
   const handleClick = (userId)=>{
     setShowSidebar(false);
   }  

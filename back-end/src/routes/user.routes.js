@@ -6,7 +6,7 @@ const router = Router();
 
 router.post("/signup", signup)
 router.post("/login", login)
-router.get("/all-users", getAllUsers)
-router.get("/search/:query", searchUsers)
+router.get("/all-users", protectRoute,  getAllUsers)
+router.get("/search/:query",  searchUsers)
 
 export default router;

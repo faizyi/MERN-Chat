@@ -9,11 +9,13 @@ export default function usersHook() {
     const fetchUsers = async () => {
       try {
         const result = await allUsers();
+        console.log(result);
+        
         setUsers(result.data.users)
         setLoading(false);
       } catch (error) {
         console.log(error)
-        navigate("/login")
+        // navigate("/login")
       }
     }
     fetchUsers();

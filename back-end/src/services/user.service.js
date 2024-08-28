@@ -15,7 +15,7 @@ const createUser = async (payload)=>{
         const result = await user.save();
         return result
     } catch (error) {
-        throw new Error(error);
+         throw error
     }
 }
 
@@ -25,7 +25,7 @@ const getUsers = async (loggedInUserId)=>{
         const allUser =  await userModel.find({_id : {$ne : loggedInUserId}}).select("-password");
         return allUser
     } catch (error) {
-        throw new Error(error);
+         throw error
     }
 }
 
@@ -34,7 +34,7 @@ const searchUser = async(name)=>{
         const search = await userModel.find({fullName: new RegExp(name, "i")})
         return search
     } catch (error) {
-        throw new Error(error); 
+         throw error 
     }
 }
 
@@ -42,5 +42,5 @@ export {
     findByEmail,
     createUser,
     getUsers,
-    searchUser
+    searchUser,
 }

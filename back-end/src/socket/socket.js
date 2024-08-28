@@ -1,9 +1,8 @@
-import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
+import express from "express";
 import { whiteList } from "../config/cors.config.js";
 const app = express();
-
 const server = createServer(app);
 const io = new Server(server, {
     cors: {
@@ -42,4 +41,4 @@ io.on("connection", (socket) => {
     });
 });
 
-export { server, io, users, app };
+export { server, io, app, users };
