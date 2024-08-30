@@ -1,4 +1,4 @@
-import { Box, Typography, Grid, Paper } from "@mui/material";
+import { Box, Typography, Grid, Paper, Avatar } from "@mui/material";
 import messagesHook from "../../customHooks/chatHooks/messages.hook";
 import { useEffect, useRef } from "react";
 // import { messageTime } from "../../utils/messageTime";
@@ -50,6 +50,8 @@ export default function AllMessages() {
  <Box sx={{ p: 2 }}>
         {messages.length > 0 ? (
           messages.map((msg, index) => (
+            <Box>
+              
             <Paper
               key={index}
               elevation={2}
@@ -62,6 +64,7 @@ export default function AllMessages() {
                 mr: msg.senderId !== senderId ? "auto" : "unset",
                 backgroundColor: msg.senderId === senderId ? "#DCF8C6" : "#FFFFFF",
                 boxShadow: 2,
+                // display: "flex"
               }}
             >
               <Typography
@@ -70,7 +73,7 @@ export default function AllMessages() {
                   textAlign: "right",
                   // color: msg.senderId === senderId ? "#25D366" : "#075E54",
                   fontWeight: "bold",
-                  mb: 0.5,
+                  mb: 0,
                 }}
               >
                 {msg.senderId === senderId ? "You" : "Friend"}
@@ -85,9 +88,10 @@ export default function AllMessages() {
                 variant="caption"
                 sx={{ textAlign: "right", color: "gray", display: "block" }}
               >
-                {/* {messageTime(msg.timeStamp)} */}
               </Typography>
+
             </Paper>
+            </Box>
           ))
         ) : (
           <Typography variant="body2" sx={{ textAlign: "center", color: "gray" }}>

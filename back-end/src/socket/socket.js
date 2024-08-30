@@ -9,7 +9,8 @@ const io = new Server(server, {
         origin: whiteList,
         methods: ["GET", "POST"],
         credentials: true,
-    }
+    },
+    transports: ['websocket', 'polling'], 
 });
 
 let users = [];

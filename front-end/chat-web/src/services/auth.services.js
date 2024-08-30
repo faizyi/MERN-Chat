@@ -26,8 +26,6 @@ export const login = async (data,navigate)=>{
 export const allUsers = async ()=>{
     try {
         const response = await axiosHandler.get("/api/users/all-users");
-        console.log(response);
-        
         return response
     } catch (error) {
         return error

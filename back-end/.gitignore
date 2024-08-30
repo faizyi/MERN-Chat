@@ -6,3 +6,4 @@ node_modules
 
 # Vercel configuration
 .vercel.json
+.vercel

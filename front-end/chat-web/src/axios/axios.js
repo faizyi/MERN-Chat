@@ -1,7 +1,7 @@
 import axios from "axios";
-
+const url = "https://chat-backend-tau-two.vercel.app/"
 export const axiosHandler = axios.create({
-    baseURL : "https://chat-backend-tau-two.vercel.app/",
+    baseURL : "http://localhost:7777/",
     headers : {"Content-Type" : "application/json"},
     withCredentials : true
 })
