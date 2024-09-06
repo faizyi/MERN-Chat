@@ -1,6 +1,6 @@
 import io from "socket.io-client"
 
-const socket = io("http://localhost:5825/",{
+const socket = io("https://socket-io-server-nu.vercel.app/",{
     withCredentials: true,
     transports: ["polling"], 
 });
