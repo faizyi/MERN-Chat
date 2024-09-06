@@ -1,17 +1,21 @@
 import { axiosHandler } from "../axios/axios"
 
-export const signup = async (data,navigate)=>{
+export const signup = async (data, navigate) => {
     try {
         const response = await axiosHandler.post("/api/users/signup", data);
         localStorage.setItem('userData', JSON.stringify(response.data));
         localStorage.setItem('userId', response.data.userId);
         navigate("/login")
-        return response
+        return response.data
     } catch (error) {
-        return error
+        if (error.response && error.response.data && error.response.data.errors) {
+            return error.response.data.errors;
+          } else if (error.response && error.response.data && error.response.data.message) {
+            return error.response.data.message
+          }
     }
 }
-export const login = async (data,navigate)=>{
+export const login = async (data, navigate) => {
     try {
         const response = await axiosHandler.post("/api/users/login", data);
         localStorage.setItem('userData', JSON.stringify(response.data));
@@ -23,7 +27,7 @@ export const login = async (data,navigate)=>{
     }
 }
 
-export const allUsers = async ()=>{
+export const allUsers = async () => {
     try {
         const response = await axiosHandler.get("/api/users/all-users");
         return response

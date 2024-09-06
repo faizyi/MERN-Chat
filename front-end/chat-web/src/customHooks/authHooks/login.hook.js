@@ -1,8 +1,9 @@
+import { notification } from 'antd';
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/auth.services";
 import { useState } from "react";
 export default function loginHook() {
-  const [userData, setUserData] = useState("");
+  const [errors, setErrors] = useState({});
     const navigate = useNavigate();
     const handleLogin = async (event) => {
       event.preventDefault();
@@ -13,7 +14,17 @@ export default function loginHook() {
             password : user.get("password")
           }
           const result = await login(data, navigate);
-          console.log(result);
+          if(result.response.status == 201){
+            notification.success({
+              message: result.response.data.message,
+              duration: 2
+            })
+          }else{
+            notification.error({
+              message: result.response.data.message,
+              duration: 2
+            })
+          }
         } catch (error) {
             console.log(error);
         }

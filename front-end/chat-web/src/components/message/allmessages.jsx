@@ -50,8 +50,7 @@ export default function AllMessages() {
  <Box sx={{ p: 2 }}>
         {messages.length > 0 ? (
           messages.map((msg, index) => (
-            <Box>
-              
+            <Box key={index}>
             <Paper
               key={index}
               elevation={2}
