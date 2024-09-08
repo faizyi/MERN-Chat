@@ -7,7 +7,8 @@ import chatRoutes from "./src/routes/chat.routes.js";
 import connectToDB from "./src/db/db.js";
 import cookieParser from "cookie-parser";
 import { corsOption } from "./src/config/cors.config.js";
-import {  server, app  } from "./src/socket/socket.js";
+// import {  server, app  } from "./src/socket/socket.js";
+const app = express();
 
 //Connect DB
 connectToDB()
@@ -25,7 +26,7 @@ app.get("/", (req, res) => {
 app.use("/api/users", userRoutes);
 app.use("/api/chats", chatRoutes);
 
-server.listen(config.appPort, () => {
+app.listen(config.appPort, () => {
     console.log(`Server running on port ${config.appPort}`);
 });
 

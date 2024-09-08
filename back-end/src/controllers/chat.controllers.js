@@ -1,9 +1,9 @@
 import { createChat, getMessagesById } from "../services/chat.service.js";
 import { io, users } from "../socket/socket.js";
 const sendMessage = async (req, res)=>{
-    const {senderId, receiverId, message} = req.body;
+    const {senderId, receiverId, message, timeStamp} = req.body;
     try {
-        const payload = {senderId, receiverId, message};
+        const payload = {senderId, receiverId, message, timeStamp};
         console.log(payload);
         const chat = await createChat(payload);
         // const recieverSocketId = users[receiverId];

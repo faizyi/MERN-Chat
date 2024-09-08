@@ -12,13 +12,13 @@ export default function AllMessages() {
       // messageTime()
     }, [messages]);
     const calculateWidth = (message) => {
-      const minWidth = 70; // minimum width in pixels
-      const maxWidth = 400; // maximum width in pixels
+      const minWidth = 80; // minimum width in pixels
+      // const maxWidth = 400; // maximum width in pixels
       const padding = 16; // padding inside the Paper component
       const lengthMultiplier = 8; // multiplier to adjust width per character
   
       const calculatedWidth = message.length * lengthMultiplier + padding;
-      return Math.min(Math.max(calculatedWidth, minWidth), maxWidth);
+      return Math.min(Math.max(calculatedWidth, minWidth));
     };
   return (
     <Grid
@@ -57,6 +57,7 @@ export default function AllMessages() {
               sx={{
                 mb: 1,
                 p: 1,
+                maxWidth: {xs: "200px", sm: "200px", md: "400px", lg: "400px"},
                 width: `${calculateWidth(msg.message)}px`,
                 borderRadius: 2,
                 ml: msg.senderId === senderId ? "auto" : "unset",
@@ -66,7 +67,7 @@ export default function AllMessages() {
                 // display: "flex"
               }}
             >
-              <Typography
+              {/* <Typography
                 variant="body2"
                 sx={{
                   textAlign: "right",
@@ -76,7 +77,7 @@ export default function AllMessages() {
                 }}
               >
                 {msg.senderId === senderId ? "You" : "Friend"}
-              </Typography>
+              </Typography> */}
               <Typography
                 variant="body2"
                 sx={{ textAlign: "left", color: "#333", }}
@@ -87,8 +88,8 @@ export default function AllMessages() {
                 variant="caption"
                 sx={{ textAlign: "right", color: "gray", display: "block" }}
               >
+                {new Date(msg.timeStamp).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}
               </Typography>
-
             </Paper>
             </Box>
           ))

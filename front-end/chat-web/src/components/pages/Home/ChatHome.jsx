@@ -12,10 +12,11 @@ export default function ChatHome() {
   }  
   return (
     <Box sx={{ display: "flex", height: "100vh" }}>
-      <Box sx={{flexGrow: {xs: 1, sm: 0}, display: {xs:`${showSidebar ? 'flex' : "none"}`, sm:"flex"}}}>
+      <Box sx={{flexGrow: {xs: 1, sm: 0}, display: {xs:`${friendId ? 'none' : "flex"}`, sm:"flex"}}}>
+        
       <Sidebar onUserClick={handleClick}/>
       </Box>
-      <Box sx={{ flexGrow: 1, display: {xs:`${showSidebar ? 'none' : "flex"}`, sm:"flex"}, 
+      <Box sx={{ flexGrow: 1, display: {xs:`${friendId ? 'flex' : "none"}`, sm:"flex"}, 
       flexDirection: "column",  
       }}>
       {friendId ? (

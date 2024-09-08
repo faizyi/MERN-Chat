@@ -10,7 +10,7 @@ export default function chatInputHook() {
   const handleSend = async () => {
     if (newMessage.trim()) {  
       const msg = newMessage;
-      const messageData = { senderId: senderId, receiverId: friendId, message: msg };
+      const messageData = { senderId: senderId, receiverId: friendId, message: msg, timeStamp: new Date() };
       socket.emit("send_message", messageData);
       try {
         await sendMessageToServer(messageData);
