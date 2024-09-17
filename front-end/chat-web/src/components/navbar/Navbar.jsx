@@ -24,7 +24,7 @@ export default function Navbar() {
           <ArrowBackIcon />
         </IconButton>
         <Toolbar sx={{ gap: "10px" }}>
-          <Avatar src={isImage ? isImage : receiverData ? receiverData.image : ""} 
+          <Avatar src={receiverData ? receiverData.image : ""} 
           sx={{ width: 40, height: 40 }} />
           <Typography variant="h6" sx={{ flexGrow: 1, fontSize: "20px", fontWeight: "bold" }}>
             {receiverData ? receiverData.fullName : ""}

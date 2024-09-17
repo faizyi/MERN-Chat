@@ -1,6 +1,6 @@
 import io from "socket.io-client"
 
-const socket = io("https://chat-socketio-production-0004.up.railway.app/",{
+const socket = io("http://localhost:5825/",{
     withCredentials: true,
     transports: ["polling"], 
 });
