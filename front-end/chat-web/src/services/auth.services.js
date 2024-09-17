@@ -3,10 +3,12 @@ import { axiosHandler } from "../axios/axios"
 export const signup = async (data, navigate) => {
     try {
         const response = await axiosHandler.post("/api/users/signup", data);
+        console.log(response);
+        
         localStorage.setItem('userData', JSON.stringify(response.data));
         localStorage.setItem('userId', response.data.userId);
         navigate("/login")
-        return response.data
+        return response
     } catch (error) {
         if (error.response && error.response.data && error.response.data.errors) {
             return error.response.data.errors;

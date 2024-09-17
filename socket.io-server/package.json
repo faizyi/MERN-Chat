@@ -2,9 +2,10 @@
   "name": "socket.io-server",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "socket.io.js",
   "scripts": {
-    "start": "nodemon socket.io.js",
+    "start": "node socket.io.js",
+    "dev": "nodemon socket.io.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",

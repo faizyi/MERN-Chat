@@ -1,5 +1,6 @@
 import { Box} from '@mui/material';
 import GetUsers from './getUsers';
+import Loader from '../loader/loader';
 export default function AllUsers({ onUserClick, filteredUsers }) {
   return (
     <Box
@@ -25,6 +26,8 @@ export default function AllUsers({ onUserClick, filteredUsers }) {
       }}
     >
       <GetUsers onUserClick={onUserClick} filteredUsers={filteredUsers}/>
+      {/* <div className=''> <Loader/></div> */}
+     
     </Box>
   );
 }

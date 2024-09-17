@@ -1,5 +1,4 @@
 import userModel from "../models/user.model.js";
-
 const findByEmail = async (email)=>{
     try {
         const user = await userModel.findOne({email : email});
@@ -29,12 +28,12 @@ const getUsers = async (loggedInUserId)=>{
     }
 }
 
-const searchUser = async(name)=>{
+const imageUpload = async (id, imageBase64)=>{
     try {
-        const search = await userModel.find({fullName: new RegExp(name, "i")})
-        return search
+        const image = await userModel.findByIdAndUpdate(id, {image: imageBase64}, {new: true});
+        return image
     } catch (error) {
-         throw error 
+        throw error 
     }
 }
 
@@ -42,5 +41,5 @@ export {
     findByEmail,
     createUser,
     getUsers,
-    searchUser,
+    imageUpload
 }

@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { allUsers } from "../../services/auth.services";
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { showLoader, hideLoader } from '../../redux/loaderRedux/loaderSlice';
 export default function usersHook() {
+  const isLoading = useSelector(state => state.loader.isLoader);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
   useEffect(() => {
+    dispatch(showLoader())
     const fetchUsers = async () => {
       try {
         const result = await allUsers();
-        console.log(result);
+        dispatch(hideLoader())
+        // console.log(result);
         setUsers(result.data.users)
-        setLoading(false);
       } catch (error) {
         console.log(error)
         navigate("/login")
+      } finally {
+        dispatch(hideLoader())
       }
     }
     fetchUsers();
@@ -25,5 +31,6 @@ export default function usersHook() {
   return {
     users,
     handleUserClick,
+    isLoading
   }
 }

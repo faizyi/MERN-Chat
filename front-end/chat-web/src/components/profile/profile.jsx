@@ -1,9 +1,13 @@
 import React from 'react';
 import { Box, Avatar, Typography } from '@mui/material';
-export default function Profile() {
+import { useSelector } from 'react-redux';
+export default function Profile({handleProfileClick}) {
+  const isImage = useSelector(state => state.profile.image)
   const sender = JSON.parse(localStorage.getItem("userData")) || null;
   return (
+    
     <Box
+    onClick={handleProfileClick}
       sx={{
         p: 1.5,
         borderBottom: '1px solid #333',
@@ -14,9 +18,9 @@ export default function Profile() {
       }}
     >
       <Avatar 
-        alt="You" 
-        src="https://example.com/avatar.jpg" 
-        sx={{ width: 56, height: 56 }}
+        // alt="You" 
+        src={isImage ? isImage : sender && sender.image ? `data:image/png;base64${sender.image}` : ""}  
+        sx={{ width: 56, height: 56,}}
       />
       <Box>
         <Typography  component="div"

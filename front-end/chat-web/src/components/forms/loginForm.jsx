@@ -2,10 +2,12 @@ import { Button, TextField, Box, Container, Typography, Grid, Avatar } from '@mu
 import { Link } from 'react-router-dom';
 import { Person, Email, Lock, ChatBubble } from '@mui/icons-material';
 import loginHook from '../../customHooks/authHooks/login.hook';
+import Loader from '../loader/loader';
 export default function LoginForm() {
-    const {handleLogin} = loginHook();
+    const {handleLogin, isLoading} = loginHook();
   return (
     <div className="flex items-center justify-center min-h-screen" style={{ backgroundColor: '#f5f5f5' }}>
+      {isLoading ? <Loader/> :
       <Container component="main" maxWidth="xs">
         <Box
           sx={{
@@ -72,6 +74,7 @@ export default function LoginForm() {
           </Box>
         </Box>
       </Container>
+      }
     </div>
   )
 }

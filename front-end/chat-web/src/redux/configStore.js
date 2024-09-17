@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from '../../src/redux/userRedux/userSlice'
-const preloadedState = {
-    user: JSON.parse(localStorage.getItem('receiverData')) || null,
-  };
+import loaderReducer from "../../src/redux/loaderRedux/loaderSlice"
+import profileReducer from "../../src/redux/profile/profileSlice"
 export const store = configureStore({
     reducer : {
-        user :  userReducer
+        user :  userReducer,
+        loader : loaderReducer,
+        profile : profileReducer,
     },
-    // preloadedState,
 })

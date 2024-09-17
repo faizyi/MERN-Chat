@@ -2,10 +2,12 @@ import { Button, TextField, Box, Container, Typography, Grid, Avatar,  } from '@
 import { Link } from 'react-router-dom';
 import { Person, Email, Lock, ChatBubble } from '@mui/icons-material';
 import signupHook from '../../customHooks/authHooks/signup.hook.jsx';
+import Loader from '../loader/loader.jsx';
 export default function SignupForm() {
-  const { handleSignup, errors } = signupHook();
+  const { handleSignup, errors, isLoading } = signupHook();
   return (
     <div className="flex items-center justify-center min-h-screen" style={{ backgroundColor: '#f5f5f5' }}>
+      {isLoading ? <Loader/> :
       <Container component="main" maxWidth="xs">
         <Box
           sx={{
@@ -34,7 +36,7 @@ export default function SignupForm() {
               name="fullName"
               label="Full Name"
               autoComplete="name"
-              sx={{textTransform: "capitalize"}}
+              sx={{textTransform: "capitalize", color: "red"}}
               InputProps={{
                 startAdornment: <Person sx={{ color: 'action.active', mr: 1 }} />,
               }}
@@ -91,6 +93,7 @@ export default function SignupForm() {
           </Box>
         </Box>
       </Container>
+      }
     </div>
   );
 }

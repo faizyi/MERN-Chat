@@ -14,9 +14,11 @@ const app = express();
 connectToDB()
 
 //middleware
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '10mb' })); // Set to 10MB or a higher value as needed
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 app.use(cookieParser());
 app.use(express.json());
+// app.use(bodyParser.raw({ type: 'multipart/form-data', limit: '10mb' }));
 app.use(cors(corsOption));
 
 //routes

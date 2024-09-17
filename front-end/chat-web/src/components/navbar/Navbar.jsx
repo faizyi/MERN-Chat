@@ -3,6 +3,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 export default function Navbar() {
+  const isImage = useSelector(state => state.profile.image)
   const navigate = useNavigate();
   const receiverData = JSON.parse(localStorage.getItem('receiverData')) || null;
   const handleBack = ()=>{
@@ -23,7 +24,8 @@ export default function Navbar() {
           <ArrowBackIcon />
         </IconButton>
         <Toolbar sx={{ gap: "10px" }}>
-          <Avatar src="/broken-image.jpg" sx={{ width: 40, height: 40 }} />
+          <Avatar src={isImage ? isImage : receiverData ? receiverData.image : ""} 
+          sx={{ width: 40, height: 40 }} />
           <Typography variant="h6" sx={{ flexGrow: 1, fontSize: "20px", fontWeight: "bold" }}>
             {receiverData ? receiverData.fullName : ""}
           </Typography>
