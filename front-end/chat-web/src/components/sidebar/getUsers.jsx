@@ -27,7 +27,7 @@ export default function GetUsers({ onUserClick, filteredUsers }) {
                         height: '40vh', // Full height of the sidebar
                     }}
                 >
-                    <Loader />
+                    {/* <Loader /> */}
                 </Box>
             ) : filteredUsers.length > 0 ? (
                 filteredUsers.map((user) => (

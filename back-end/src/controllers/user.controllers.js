@@ -29,7 +29,7 @@ const login = async (req, res)=>{
         if(!user || !isMatch) return res.status(400).json({message : "Invalid credentials"})
         const token = await jwtToken(user, res);
         res.status(201).json({token , message: "success",  userId : user._id, 
-        fullName : user.fullName, email : user.email, image: user.image, message: "You have successfully signed up!"});
+        fullName : user.fullName, email : user.email, image: user.image, message: "You have successfully LogedIn up!"});
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

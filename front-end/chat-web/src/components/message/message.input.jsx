@@ -8,16 +8,23 @@ export default function MessageInput() {
       sx={{
         position: "fixed",
         bottom: 0,
-        left: { xs: "0px", sm: '340px',md: "400px", lg: "400px"  },
+        left: { xs: "0px", sm: '340px', md: "400px", lg: "400px" },
         right: 0,
-        backgroundColor: "#171c1c",
-        alignItems: "center",
+        backgroundColor: "#1e2a33",
+        zIndex: 1000,
       }}
     >
       <Paper
         component="form"
-        sx={{ backgroundColor: "#2A3942", display: 'flex', alignItems: 'center', margin: 1 }}
-        onSubmit={(e) => {e.preventDefault()}}
+        sx={{ 
+          backgroundColor: "#2e3c47", 
+          display: 'flex', 
+          alignItems: 'center', 
+          margin: 1, 
+          borderRadius: 3,
+          boxShadow: '0px 3px 6px rgba(0,0,0,0.16)',
+        }}
+        onSubmit={(e) => { e.preventDefault(); }}
       >
         <InputBase
           fullWidth
@@ -26,12 +33,12 @@ export default function MessageInput() {
           onKeyPress={(e) => {
             if (e.key === "Enter") handleSend();
           }}
-          sx={{ ml: 1, flex: 1, color: "white",p:1}}
-          placeholder="Type a message"
+          sx={{ ml: 2, flex: 1, color: "white", p: 1 }}
+          placeholder="Type a message..."
         />
         <IconButton
           onClick={handleSend}
-          sx={{ color: "white", p: "10px", }}
+          sx={{ color: "#4caf50", p: "10px" }}
           aria-label="send"
         >
           <FaPaperPlane />

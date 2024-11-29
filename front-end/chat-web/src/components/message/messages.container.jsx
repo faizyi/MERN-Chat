@@ -1,11 +1,10 @@
-import React, { useEffect, useRef } from 'react';
-import { Box, Grid} from "@mui/material";
+import React from 'react';
+import { Box, Grid } from "@mui/material";
 import MessageInput from "./message.input";
-import Navbar from '../navbar/Navbar';
-import AllMessages from './allmessages';
+import Navbar from "../navbar/Navbar";
+import AllMessages from "./allmessages";
+
 export default function MessagesContainer() {
-
-
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
       <Navbar />
@@ -14,13 +13,12 @@ export default function MessagesContainer() {
         container
         direction="column"
         justifyContent="flex-start"
-        sx={{ flexGrow: 1, height: "100%", overflow: "hidden", }}
+        sx={{ flexGrow: 1, height: "100%", overflow: "hidden" }}
       >
-        <AllMessages/>
+        <AllMessages />
         <Grid item sx={{ position: "sticky", bottom: 0, zIndex: 1000 }}>
           <MessageInput />
         </Grid>
-
       </Grid>
     </Box>
   );

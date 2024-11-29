@@ -14,12 +14,18 @@ export default function AllMessages() {
   }, [messages]);
 
   const calculateWidth = (message) => {
-    const minWidth = 80; // minimum width in pixels
-    const padding = 16; // padding inside the Paper component
-    const lengthMultiplier = 8; // multiplier to adjust width per character
+    const minWidth = 80; // Minimum width for short messages
+    const maxWidth = 400; // Maximum width for long messages
+    const lengthMultiplier = 8; // Width adjustment per character
+    const padding = 16; // Padding inside the Paper component
 
     const calculatedWidth = message.length * lengthMultiplier + padding;
-    return Math.max(calculatedWidth, minWidth);
+    return Math.min(Math.max(calculatedWidth, minWidth), maxWidth);
+  };
+
+  const wrapMessage = (message, maxChars) => {
+    const regex = new RegExp(`.{1,${maxChars}}`, "g");
+    return message.match(regex);
   };
 
   return (
@@ -32,20 +38,20 @@ export default function AllMessages() {
         height: "calc(100vh - 128px)", // Adjust height to keep it above the input
         paddingBottom: "44px", // Make room for the input at the bottom
         paddingTop: "60px",
-        '&::-webkit-scrollbar': {
-          width: '10px', // Width of the scrollbar
+        "&::-webkit-scrollbar": {
+          width: "10px", // Width of the scrollbar
         },
-        '&::-webkit-scrollbar-track': {
-          backgroundColor: '#111b21', // Track color
+        "&::-webkit-scrollbar-track": {
+          backgroundColor: "#111b21", // Track color
         },
-        '&::-webkit-scrollbar-thumb': {
-          backgroundColor: '#333', // Thumb color
-          borderRadius: '10px', // Rounded corners for the thumb
-          border: '2px solid transparent', // Adds space around the thumb
-          backgroundClip: 'content-box', // Ensures the border doesn't overlap the thumb color
+        "&::-webkit-scrollbar-thumb": {
+          backgroundColor: "#333", // Thumb color
+          borderRadius: "10px", // Rounded corners for the thumb
+          border: "2px solid transparent", // Adds space around the thumb
+          backgroundClip: "content-box", // Ensures the border doesn't overlap the thumb color
         },
-        '&::-webkit-scrollbar-thumb:hover': {
-          backgroundColor: '#555', // Darker thumb color on hover
+        "&::-webkit-scrollbar-thumb:hover": {
+          backgroundColor: "#555", // Darker thumb color on hover
         },
       }}
     >
@@ -53,10 +59,10 @@ export default function AllMessages() {
         {isLoading ? (
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '70vh', // Full height of the sidebar
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "70vh", // Full height of the sidebar
             }}
           >
             <Loader />
@@ -69,8 +75,8 @@ export default function AllMessages() {
                 sx={{
                   mb: 1,
                   p: 1,
-                  maxWidth: { xs: "200px", sm: "200px", md: "400px", lg: "400px" },
                   width: `${calculateWidth(msg.message)}px`,
+                  maxWidth: "400px", // Ensure it wraps if too long
                   borderRadius: 2,
                   ml: msg.senderId === senderId ? "auto" : "unset",
                   mr: msg.senderId !== senderId ? "auto" : "unset",
@@ -78,12 +84,24 @@ export default function AllMessages() {
                   boxShadow: 2,
                 }}
               >
-                <Typography
-                  variant="body2"
-                  sx={{ textAlign: "left", color: "#333" }}
-                >
-                  {msg.message}
-                </Typography>
+                {msg.message.length <= 50 ? ( // Short messages
+                  <Typography
+                    variant="body2"
+                    sx={{ textAlign: "left", color: "#333" }}
+                  >
+                    {msg.message}
+                  </Typography>
+                ) : ( // Long messages
+                  wrapMessage(msg.message, 50).map((line, i) => (
+                    <Typography
+                      key={i}
+                      variant="body2"
+                      sx={{ textAlign: "left", color: "#333" }}
+                    >
+                      {line}
+                    </Typography>
+                  ))
+                )}
                 <Typography
                   variant="caption"
                   sx={{ textAlign: "right", color: "gray", display: "block" }}
